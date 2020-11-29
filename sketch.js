@@ -7,6 +7,7 @@ var ground,base
 var b1, b2,b3,b4,b5,b6;
 var polygon, hexagon;
 var connector
+var gameState = 0;
 
 function preload(){
   hexagon = loadImage("hexagon.png")
@@ -53,7 +54,7 @@ function setup() {
   polygon = Bodies.rectangle(200,200,40,40,p_options);
   World.add(world,polygon);
 
-  connector = new Sling(polygon, {x:250, y:450})
+  connector = new Sling(polygon, {x:250, y:450});
 
 }
 
@@ -99,20 +100,31 @@ function draw() {
   pop();
 
   connector.display();
+
+  textSize(25);
+  text("DRAG YOUR MOUSE AND RELEASE TO THROW THE HEXAGON",10,50);
+
+  text("PRESS SPACE TO RESET",290,75);
 }
 
 function mouseDragged(){
+  if(gameState === 0){
   Matter.Body.setPosition(polygon,{x:mouseX, y:mouseY});
-  console.log("yay")
+  console.log("yay");
+  }
 }
 
 function mouseReleased(){
   connector.fly();
+  gameState = 1;
 }
 
 function keyPressed(){
+  if(gameState === 1){
   if(keyCode === 32){
     connector.attatch(polygon);
     Matter.Body.setPosition(polygon, {x:200,y:400});
+    gameState = 0;
+  }
   }
 }
