@@ -30,9 +30,9 @@ class Box{
             console.log(speed);
             World.remove(world,this.body);
             push();
-            this.Visibility = this.Visibility - 5;
+            this.Visibility = this.Visibility - 10;
             tint(255,this.Visibility);
-            rect (0,0,this.width,this.height);
+            //rect (0,0,this.width,this.height);
             pop();
         }
     }
